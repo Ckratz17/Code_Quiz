@@ -28,7 +28,7 @@ main {
     margin-right:200px;
 }
 
-h1, #timer {
+h1, #timer, h2, p {
     color: lightblue;
 }
 
@@ -56,6 +56,7 @@ ul {
 
 li {
     margin-bottom: 10px;
+    color: lightblue;
 }
 
 .question_page, .submit_page, .highscore_page, #check_line {
