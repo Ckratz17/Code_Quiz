@@ -93,15 +93,17 @@ function countdown() {
         }
     }, 1000)
 }
-
+//start the quiz
 function startQuiz() {
     intro.style.display = 'none'
     questionPage.style.display = 'block'
     questionNumber = 0
     countdown()
-    
 }
 
+startBtn.addEventListener('click', startQuiz)
+
+//show the questions
 function showQuestion() {
     askQuestion.textContent = questions[n].question
     answerA.textContent = questions[n].choices[0]
@@ -111,9 +113,81 @@ function showQuestion() {
     questionNumber = n
 }
 
+//choose an answer
+function selectAnswer(event) {
+    event.preventDefault()
+
+    checkLine.style.display = 'block'
+    setTimeout(function() {
+        checkLine.style.display = 'none'
+    }, 1000)
+
+    if (questions[questionNumber].answer == event.target.value) {
+        checkLine.textContent = "Correct!"
+        totalScore = totalScore + 1
+    } else {
+        checkLine.textContent = "Wrong! The correct answer is " + questions[questionNumber].correct + ' .'
+    }
+
+    if (questionNumber < questions.length -1) {
+        showQuestion(questionNumber +1)
+    }else {
+        gameOver()
+    }
+    questionCount++
+}
+
+choiceBtn.forEach(function(click) {
+    click.addEventListener('click', selectAnswer)
+})
+
+//end the game and display the final score
 function gameOver() {
     questionPage.style.display = 'none'
     submit.style.display = 'block'
     finalScore.textContent = "Your final score is " + totalScore
     timeLeft.style.display = 'none'
 }
+
+function getScore() {
+    var currentList = localStorage.getItem("ScoreList")
+    if (currentList !== null) {
+        freshList = Json.parse(currentList)
+        return freshList
+    } else {
+        freshList = []
+    }
+    return freshList
+}
+
+function renderScore() {
+    highScore.innerHTML = ""
+    highScore.style.display = 'block'
+    var highScores = sort()
+
+    var topFive = highScores.slice(0,5)
+    for (var i =0; i< topFive.length; i++) {
+        var item = topFive[i]
+    
+        var li = document.createElement("li")
+        li.textContent = item.user + " - " + item.score
+        li.setAttribute("data-index", i)
+        highScore.appendChild(li)
+    }
+}
+
+function addItem (n) {
+    var addedList = getScore()
+    addedList.push(n)
+    localStorage.setItem("ScoreList", JSON.stringify(addedList))
+}
+
+function saveScore () {
+    var scoreItem = {
+        user: initials.value,
+        score: totalScore
+    }
+    addItem(scoreItem)
+    renderScore()
+}
+
