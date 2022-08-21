@@ -10,19 +10,72 @@
 
 <body>
     <header>
-        <h1>View high scores</h1>
+        <div class="header">
+            <div>
+                <button class="button" id="score">View High Score</button>
+            </div>
+            <div>
+                <p id="timer">Time left: 60s</p>
+            </div>
+        </div>
     </header>
 
-    <div class="quiz-header">
-        <h1>Code Quiz Challenge</h1>
+    <main>
+        <div>
+            <section class="intro" id="intro">
+                <div id="startQuiz">
+                    <h1>
+                        Take the Coding Quiz!
+                    </h1>
+                    <p id="instructions">
+                        Try to answer as many of the questions in 60 seconds, but beware: MISSING A QUESTION WILL REDUCE 10 SECONDS OFF THE TIMER!
+                    </p>
+                    <button class="button" id="startBtn">START</button>
+                </div>
+            </section>
 
-        <p>
-            Try answering all the questions before time runs out, but 
-            keep in mind, you will lose 10 seconds for every wrong answer!
-        </p>
+            <section class="question_page" id="question_page">
+                <div>
+                    <!--question body-->
+                    <div>
+                        <h2 id = "ask_question">Ask the question</h2>
+                        <ul>
+                            <li><button class ="choices button" id="answer_btn1" value="a">A:</button></li>
+                            <li><button class ="choices button" id="answer_btn2" value="b">B:</button></li>
+                            <li><button class ="choices button" id="answer_btn3" value="c">C:</button></li>
+                            <li><button class ="choices button" id="answer_btn4" value="d">D:</button></li>
+                        </ul>
+                    </div>
+                    
+                    <div id="check_line">
+                        <p>Correct or Wrong</p>
+                    </div>
+                </div>
+            </section>
 
-        <button>START</button>
-    </div>
+            <section class="submit_page" id="submit_page">
+                <div>
+                    <h2 id="finish">All Done!</h2>
+                    <p id = "final_score">Your final score is: </p>
+                    <p>Enter initials
+                        <input id="initial">
+                        <button class="button" id="submit_btn">Submit</button>
+                    </p>
+                </div>
+            </section>
+
+            <section class="highscore_page" id ="highscore_page">
+                <div>
+                    <h2>High Scores</h2>
+                    <div id="score_record"><p>Your record</p></div><br><br>
+                    <div>
+                        <button class="button" id="back_btn">Go back</button>
+                        <button class="button" id="clear_btn">Clear Highscores</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
 
 
 <script src="./Assets/script.js"></script>
