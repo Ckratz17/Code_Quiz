@@ -1,29 +1,8 @@
-var welcome = document.getElementById('welcome')
-var highScorePage = document.getElementById('high_score_page')
-var startBtn = document.getElementById('startBtn')
-var intro = document.getElementById('intro')
-var questionPage = document.getElementById('question_page')
-var askQuestion = document.querySelector('#ask-question')
-var choiceBtn = document.querySelector('.choices')
-var answerA = document.querySelector('.answerA')
-var answerB = document.querySelector('.answerB')
-var answerC = document.querySelector('.answerC')
-var answerD = document.querySelector('.answerD')
-var checkLine = document.getElementById('check_line')
-var submit = document.getElementById('submit_page')
-var finalScore = document.getElementById('final_score')
-var initials = document.getElementById('initials')
-var submitBtn = document.getElementById('submit_btn')
-var highScore = document.getElementById('high_score')
-var scoreCheck = document.getElementById('score')
-var finish = document.getElementById('finish')
-var backBtn = document.getElementById('back_btn')
-var clearBtn = document.getElementById('clear_btn')
 
 var questions = [
     {
         question: "Question 1 : String values must be enclosed within _____ when being assigned to variables.",
-        choices: ["quotes", "curly brackets", "commas"],
+        choices: ["quotes", "curly brackets", "commas", "parenthesis"],
         correct: "a",
     },
 
@@ -92,25 +71,34 @@ function countdown() {
         }
     }, 1000)
 }
+
+var intro = document.getElementById('intro')
+var questionPage = document.getElementById('question_page')
+var questionNumber = [0]
 //start the quiz
 function startQuiz() {
     intro.style.display = 'none'
     questionPage.style.display = 'block'
     countdown()
-    showQuestion()
+    showQuestion(questionNumber)
 }
 
+var askQuestion = document.getElementById('ask_question')
+var answerA = document.getElementById('answerA')
+var answerB = document.getElementById('answerB')
+var answerC = document.getElementById('answerC')
+var answerD = document.getElementById('answerD')
 //show the questions
-function showQuestion (id) {
-   if (id < questions.length) {
-    askQuestion.textContent = questions[id].question
-    answerA.textContent = questions[id].choices[0]
-    answerB.textContent = questions[id].choices[1]
-    answerC.textContent = questions[id].choices[2]
-    answerD.textContent = questions[id].choices[3]
-   }
+function showQuestion(n) {
+    askQuestion.textContent = questions[n].question
+    answerA.textContent = questions[n].choices[0]
+    answerB.textContent = questions[n].choices[1]
+    answerC.textContent = questions[n].choices[2]
+    answerD.textContent = questions[n].choices[3]
+    questionNumber = n
 }
 
+var checkLine = document.getElementById("check_line")
 //choose an answer
 function selectAnswer(event) {
     event.preventDefault()
@@ -120,7 +108,7 @@ function selectAnswer(event) {
         checkLine.style.display = 'none'
     }, 1000)
 
-    if (questions[questionNumber].answer == event.target.value) {
+    if (questions[questionNumber].correct == event.target.value) {
         checkLine.textContent = "Correct!"
         totalScore = totalScore + 1
     } else {
@@ -136,6 +124,7 @@ function selectAnswer(event) {
     questionCount++
 }
 
+var submit = document.getElementById('submit_page')
 //end the game and display the final score
 function gameOver() {
     questionPage.style.display = 'none'
@@ -155,6 +144,8 @@ function getScore() {
     return freshList
 }
 
+var highScorePage = document.getElementById('highscore_page')
+var highScore = document.getElementById('high_score')
 function renderScore() {
     highScore.innerHTML = ""
     highScore.style.display = 'block'
@@ -186,17 +177,22 @@ function saveScore () {
     renderScore()
 }
 
+var startBtn = document.getElementById('startBtn')
+var choiceBtn = document.querySelector('.choices')
+var submitBtn = document.getElementById('submit_btn')
+var scoreCheck = document.getElementById('score')
+var backBtn = document.getElementById('back_btn')
+var clearBtn = document.getElementById('clear_btn')
+
 startBtn.addEventListener('click', startQuiz)
 
-choiceBtn.forEach(function(click) {
-    click.addEventListener('click', selectAnswer)
-})
+choiceBtn.addEventListener('click', selectAnswer)
 
 submitBtn.addEventListener("click", function (event) {
     event.preventDefault()
     submit.style.display = 'none'
     intro.style.display = 'none'
-    highScorePage.syle.display = 'block'
+    highScorePage.style.display = 'block'
     questionPage.style.display = 'none'
     saveScore()
 })
@@ -205,7 +201,7 @@ scoreCheck.addEventListener('click', function (event) {
     event.preventDefault()
     submit.style.display = 'none'
     intro.style.display = 'none'
-    highScorePage.syle.display = 'block'
+    highScorePage.style.display = 'block'
     questionPage.style.display = 'none'
     renderScore()
 })
@@ -214,7 +210,7 @@ backBtn.addEventListener('click', function (event) {
     event.preventDefault()
     submit.style.display = 'none'
     intro.style.display = 'none'
-    highScorePage.syle.display = 'block'
+    highScorePage.style.display = 'block'
     questionPage.style.display = 'none'
     location.reload()
 })
